@@ -1,7 +1,7 @@
 import { db } from "@/app/db/drizzle";
-import { conversation } from "@/app/db/schema";
+import { conversation, message } from "@/app/db/schema";
 import { nanoid } from "nanoid";
-import { eq, desc } from "drizzle-orm";
+import { eq, desc, and } from "drizzle-orm";
 
 export async function createConversation(userId: string, title?: string) {
   const conversationId = nanoid();
@@ -40,4 +40,39 @@ export async function getConversationById(
   }
 
   return conv;
+}
+
+/* ===========================
+   DELETE CONVERSATION
+=========================== */
+
+export async function deleteConversation(
+  conversationId: string,
+  userId: string
+) {
+  // Hubi in conversation-kan user-kan leeyahay
+  const conv = await getConversationById(conversationId, userId);
+
+  if (!conv) {
+    throw new Error("Conversation not found");
+  }
+
+  // Marka hore delete garee messages-ka
+  await db
+    .delete(message)
+    .where(eq(message.conversationId, conversationId));
+
+  // Kadib delete garee conversation-ka
+  await db
+    .delete(conversation)
+    .where(
+      and(
+        eq(conversation.id, conversationId),
+        eq(conversation.userId, userId)
+      )
+    );
+
+  return {
+    success: true,
+  };
 }
