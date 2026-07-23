@@ -19,8 +19,14 @@ export async function POST(req: Request) {
   });
 
 
+  const imageData = image.data?.[0]?.b64_json;
+
+
+  console.log("Image generated:", !!imageData);
+
+
   return NextResponse.json({
-  url: image.data?.[0]?.url,
-});
+    image: imageData,
+  });
 
 }

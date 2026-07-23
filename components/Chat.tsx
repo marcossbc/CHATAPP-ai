@@ -106,10 +106,16 @@ export default function Chat({ conversationId, initialMessages = [], conversatio
 
       const data = await response.json();
 
+      if (!data.image) {
+        throw new Error('No image data returned');
+      }
+
+      const formattedImageUrl = `data:image/png;base64,${data.image}`;
+
       setCustomImageMessages((prev) =>
         prev.map((msg) =>
           msg.id === assistantMsgId
-            ? { ...msg, imageUrl: data.imageUrl, status: 'success' }
+            ? { ...msg, imageUrl: formattedImageUrl, status: 'success' }
             : msg
         )
       );
