@@ -46,16 +46,16 @@ const SignupPage = () => {
       });
 
       if (error) {
-        setError(error.message || "Isdhafaangalku waa fashilmay");
+        setError(error.message || "Signup failed");
         return;
       }
 
-      setSuccess("Account-kaagu waa la abuuray! Waxaad loo leexinayaa chat-ka...");
+      setSuccess("Account created successfully! Redirecting to chat...");
       setTimeout(() => {
         router.push("/chat");
       }, 1500);
     } catch (err) {
-      setError("Cillad ayaa dhacday, fadlan dib u muuji");
+      setError("An error occurred, please try again");
       console.error(err);
     } finally {
       setLoading(false);
@@ -76,11 +76,10 @@ const SignupPage = () => {
             C
           </div>
           <h2 className="text-2xl font-bold text-gray-900">
-            
-            <span className="text-1xl text-red-600"> Create new Account</span>
-             </h2>
+            Create an Account
+          </h2>
           <p className="text-sm text-gray-500 mt-1">
-            welcome Chat App! Buuxi foomka hoose.
+            Welcome to Chat App! Fill out the form below to get started.
           </p>
         </div>
 
@@ -105,7 +104,7 @@ const SignupPage = () => {
           {/* Full Name Input */}
           <div>
             <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5">
-              Magacaaga
+              Full Name
             </label>
             <div className="relative">
               <User className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -117,7 +116,7 @@ const SignupPage = () => {
                     ? "border-red-300 focus:ring-2 focus:ring-red-100"
                     : "border-gray-200 focus:border-rose-500 focus:ring-2 focus:ring-rose-100"
                 }`}
-                {...register("name", { required: "Magaca waa daruuri" })}
+                {...register("name", { required: "Name is required" })}
               />
             </div>
             {errors.name && (
@@ -128,7 +127,7 @@ const SignupPage = () => {
           {/* Email Input */}
           <div>
             <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5">
-              Email-ka
+              Email Address
             </label>
             <div className="relative">
               <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -141,10 +140,10 @@ const SignupPage = () => {
                     : "border-gray-200 focus:border-rose-500 focus:ring-2 focus:ring-rose-100"
                 }`}
                 {...register("email", {
-                  required: "Email-ka waa daruuri",
+                  required: "Email is required",
                   pattern: {
                     value: /^\S+@\S+$/i,
-                    message: "Email sax ah geli",
+                    message: "Please enter a valid email",
                   },
                 })}
               />
@@ -157,7 +156,7 @@ const SignupPage = () => {
           {/* Password Input */}
           <div>
             <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5">
-              Password-ka
+              Password
             </label>
             <div className="relative">
               <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -170,10 +169,10 @@ const SignupPage = () => {
                     : "border-gray-200 focus:border-rose-500 focus:ring-2 focus:ring-rose-100"
                 }`}
                 {...register("password", {
-                  required: "Password-ka waa daruuri",
+                  required: "Password is required",
                   minLength: {
                     value: 8,
-                    message: "Ugu yaraan 8 xaraf ama tiro geli",
+                    message: "Password must be at least 8 characters",
                   },
                 })}
               />
@@ -194,7 +193,7 @@ const SignupPage = () => {
             {loading ? (
               <>
                 <Loader2 className="h-5 w-5 animate-spin" />
-                <span>Samaynaya...</span>
+                <span>Creating account...</span>
               </>
             ) : (
               <>
@@ -207,12 +206,12 @@ const SignupPage = () => {
 
         {/* Footer Link */}
         <p className="text-center text-xs text-gray-500 mt-6">
-          Account ma leedahay?{" "}
+          Already have an account?{" "}
           <Link
             href="/login"
             className="font-semibold text-rose-500 hover:text-rose-600 hover:underline transition-colors"
           >
-            Log in halkan
+            Log in here
           </Link>
         </p>
       </div>
