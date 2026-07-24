@@ -77,7 +77,9 @@ export default function Sidebar({ conversations }: SidebarProps) {
       <div className="p-5 flex items-center justify-between border-b border-rose-50">
         <div className="flex items-center gap-2">
           <div className="h-8 w-8 rounded-xl bg-rose-500 flex items-center justify-center text-white font-bold text-lg shadow-sm shadow-rose-200">
-            {session?.user?.name?.charAt(0).toUpperCase()}
+            {
+            session?.user?.name?.charAt(0).toUpperCase() || "C"
+            }
           </div>
           <h1 className="text-xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
             CHAT APP
